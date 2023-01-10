@@ -1,7 +1,7 @@
 <sdf>
-    <model name="Box1">
-        <pose>0 0 0.5 0 0 0 </pose>
-        <link name="Box1">
+    <model name="Box">
+        <pose>2 0 0.5 0 0 0 </pose>
+        <link name="Box">
             <inertial>
                 <mass>1.0</mass>
                 <inertia>
