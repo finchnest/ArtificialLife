@@ -3,6 +3,7 @@ import pybullet_data
 import pyrosim.pyrosim as pyrosim
 import numpy as np
 import time
+import math
 
 
 physicsClient = p.connect(p.GUI)
@@ -17,13 +18,11 @@ p.loadSDF("world.sdf")
 pyrosim.Prepare_To_Simulate(robotId)
 
 
-backLegSensorValues = np.zeros(100)
-frontLegSensorValues = np.zeros(100)
+backLegSensorValues = np.zeros(1000)
+frontLegSensorValues = np.zeros(1000)
 
-# print(backLegSensorValues)
-# exit()
 
-for x in range(100):
+for x in range(1000):
     p.stepSimulation()
     time.sleep( 1/60 )
 
@@ -33,9 +32,19 @@ for x in range(100):
     backLegSensorValues[x] = backLegTouch
     frontLegSensorValues[x] = frontLegTouch
 
-    # print(backLegTouch)
-    # print(x)
-    # print(backLegSensorValues)
+    pyrosim.Set_Motor_For_Joint(
+    bodyIndex = robotId,
+    jointName = "Link0_Link2", 
+    controlMode = p.POSITION_CONTROL,
+    targetPosition =0 ,
+    maxForce = 500)
+
+    pyrosim.Set_Motor_For_Joint(
+    bodyIndex = robotId,
+    jointName = "Link0_Link1", 
+    controlMode = p.POSITION_CONTROL,
+    targetPosition = 0 ,
+    maxForce = 500)
 
 np.save('data/back_values.npy', backLegSensorValues)
 np.save('data/front_values.npy', frontLegSensorValues)
