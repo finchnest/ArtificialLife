@@ -26,7 +26,7 @@ class SIMULATION:
             self.robot.Sense(x)
 
             self.robot.Think()
-            
+
             self.robot.Act(x)
 
            

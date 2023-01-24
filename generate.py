@@ -10,7 +10,7 @@ z = 0.5
 
 def Create_World():
     pyrosim.Start_SDF("world.sdf")
-    pyrosim.Send_Cube(name="Box", pos=[4,y,z] , size=[length, width, height])
+    pyrosim.Send_Cube(name="Box", pos=[-4,y,z] , size=[length, width, height])
     pyrosim.End()
 Create_World()
 
@@ -49,6 +49,16 @@ def Generate_Brain():
     pyrosim.Send_Motor_Neuron( name = 3, jointName = "Link0_Link1")
 	
     pyrosim.Send_Motor_Neuron( name = 4, jointName = "Link0_Link2")
+
+
+    pyrosim.Send_Synapse(sourceNeuronName = 0 , targetNeuronName = 3 , weight = 1.0 )
+    
+    pyrosim.Send_Synapse(sourceNeuronName = 1 , targetNeuronName = 3 , weight = 2.0 )
+
+    pyrosim.Send_Synapse(sourceNeuronName = 1 , targetNeuronName = 4 , weight = 1.0 )
+
+    pyrosim.Send_Synapse(sourceNeuronName = 2 , targetNeuronName = 4 , weight = 2.0 )
+
 
 Generate_Body()
 Generate_Brain()
