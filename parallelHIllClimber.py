@@ -3,56 +3,74 @@
 from solution import SOLUTION
 import constants as c
 import copy
+import os
 
 class PARALLEL_HILL_CLIMBER:
     def __init__(self):
-            self.parents = {}
-            self.nextAvailableID = 0
+        self.parents = {}
+        self.nextAvailableID = 0
 
-            for par in range(c.populationSize):
-                self.parents[par] = SOLUTION(self.nextAvailableID)
-                self.nextAvailableID += 1
+        os.system("rm brain*.nndf")
+        os.system("rm fitness*.nndf")
+
+        for par in range(c.populationSize):
+            self.parents[par] = SOLUTION(self.nextAvailableID)
+            self.nextAvailableID += 1
 
 
 
     def Evolve(self):
-        for parent in self.parents:
-            self.parents[parent].Start_Simulation(GUI = True)
+        
+        
+        self.Evaluate(self.parents)
 
-        for parent in self.parents:
-            self.parents[parent].Wait_For_Simulation_To_End()
 
-    def xEvolve(self):
-        pass
+        for currentGeneration in range(c.NUMBER_OF_GENERATIONS):
+            print()
+            print("CASE-----> ", currentGeneration)
+            self.Evolve_For_One_Generation()
 
-        # for currentGeneration in range(c.NUMBER_OF_GENERATIONS):
-        #     print()
-        #     print("CASE-----> ", currentGeneration)
-        #     self.Evolve_For_One_Generation()
 
+
+    def Evaluate(self,solutions, GUI = False):
+        for parent in solutions:
+            solutions[parent].Start_Simulation(GUI)
+
+        for parent in solutions:
+            solutions[parent].Wait_For_Simulation_To_End()
+     
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        self.child.Evaluate(GUI=False)
-
+        self.Evaluate(self.children)
+        self.Print()
         self.Select()
 
-        self.Print()
+        
 
 
     def Show_Best(self):
-        self.parent.Evaluate(GUI=True)
+
+        low_fit_par = min(self.parents.keys(), key = lambda par : self.parents[par].fitness)
+        self.parents[low_fit_par].Start_Simulation(GUI=True)
+
     def Spawn(self):
-        self.child = copy.deepcopy(self.parent)
-    
+        self.children = {}
+        for parent in self.parents:
+            self.children[parent] = copy.deepcopy(self.parents[parent])
+            self.children[parent].Set_ID(self.nextAvailableID)
+            self.nextAvailableID +=1            
 
     def Mutate(self):
-        self.child.Mutate()
-
+        for parent in self.parents:
+            self.children[parent].Mutate()
     def Select(self):
-        if self.parent.fitness < self.child.fitness :
-            self.parent = self.child
+        for parent in self.parents:
+            if self.parents[parent].fitness < self.children[parent].fitness :
+                self.parents[parent] = self.children[parent]
     def Print(self):
-        print("<------>")
-        print("parent fitness is ", self.parent.fitness, " and child fitness ",self.child.fitness)
-        print("<------>")
+        print()
+        print("parent: " + "	".join([str(parent) + " : " + str(self.parents[parent].fitness) for parent in self.parents]))
+        print("childre: " + "	".join([str(par) + " : " + str(self.children[par].fitness) for par in self.children]))
+
+        

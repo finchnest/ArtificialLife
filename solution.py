@@ -50,7 +50,10 @@ class SOLUTION:
         with open(self.fitnessFileName,"r") as fitness_info :
             self.fitness = float(fitness_info.read())
 
-            print("fitness value is ==> ", self.fitness)
+            # print("================")
+            # print("fitness value is ==> ", self.fitness)
+            # print("================")
+        
         os.system("rm "+ self.fitnessFileName)
 
 
