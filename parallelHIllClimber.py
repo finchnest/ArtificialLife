@@ -50,8 +50,8 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
+        low_fit_par = max(self.parents.keys(), key = lambda par : self.parents[par].fitness)
 
-        low_fit_par = min(self.parents.keys(), key = lambda par : self.parents[par].fitness)
         self.parents[low_fit_par].Start_Simulation(GUI=True)
 
     def Spawn(self):
@@ -70,7 +70,11 @@ class PARALLEL_HILL_CLIMBER:
                 self.parents[parent] = self.children[parent]
     def Print(self):
         print()
-        print("parent: " + "	".join([str(parent) + " : " + str(self.parents[parent].fitness) for parent in self.parents]))
-        print("childre: " + "	".join([str(par) + " : " + str(self.children[par].fitness) for par in self.children]))
 
-        
+        # print("pre_parent: ",self.parents[0].fitness, "pre_child: ", self.children[0].fitness)
+
+        for (k,v), (k2,v2) in zip(self.parents.items(), self.children.items()):
+
+            print("parent: ",v.fitness, "child: ", v2.fitness)
+
+        print()

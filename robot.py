@@ -14,6 +14,7 @@ class ROBOT:
 
         self.brain = "brain"+str(self.solutionID)+".nndf"
         self.fitness = "fitness"+str(self.solutionID)+".txt"
+        
         self.tmp = "tmp"+str(self.solutionID)+".txt"
 
         self.robot = p.loadURDF("body.urdf")
@@ -53,7 +54,7 @@ class ROBOT:
         self.motors = {}
 
         for jointName in pyrosim.jointNamesToIndices:
-            if jointName == 'Link0_Link1':
+            if jointName == 'Torso_FrontLeg':
                 self.motors[jointName] = MOTOR(jointName,frequency= c.back_frequency/2)
             else:
                 self.motors[jointName] = MOTOR(jointName)
@@ -63,7 +64,7 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName)
+                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
 
                 self.motors[jointName].Set_Value(self.robot, desiredAngle)
 

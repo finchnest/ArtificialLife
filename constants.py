@@ -8,8 +8,15 @@ back_amplitude = np.pi/4
 back_frequency = 10
 back_phaseOffset = np.pi/4
 
-ITERATION = 50
+ITERATION = 100
 
-NUMBER_OF_GENERATIONS = 10
-
+NUMBER_OF_GENERATIONS = 2
 populationSize = 10
+
+numSensorNeurons = 4
+numMotorNeurons = 8
+
+linksSize = 9
+
+
+motorJointRange = 0.2
