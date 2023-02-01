@@ -8,4 +8,6 @@ back_amplitude = np.pi/4
 back_frequency = 10
 back_phaseOffset = np.pi/4
 
-ITERATION = 300
+ITERATION = 50
+
+NUMBER_OF_GENERATIONS = 2
