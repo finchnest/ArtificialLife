@@ -11,3 +11,5 @@ back_phaseOffset = np.pi/4
 ITERATION = 50
 
 NUMBER_OF_GENERATIONS = 2
+
+populationSize = 2

@@ -9,8 +9,9 @@ import constants as c
 
 class SIMULATION:
 
-    def __init__(self, directOrGUI):
+    def __init__(self, directOrGUI, solutionID):
         self.GUI = directOrGUI
+        self.solutionID = solutionID
 
         self.physicsClient = p.connect(p.GUI if self.GUI else p.DIRECT)
         
@@ -18,7 +19,7 @@ class SIMULATION:
         p.setGravity(0,0,-9.8)
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(self.solutionID)
 
     def Run(self):
 
