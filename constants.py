@@ -10,7 +10,7 @@ back_phaseOffset = np.pi/4
 
 ITERATION = 100
 
-NUMBER_OF_GENERATIONS = 2
+NUMBER_OF_GENERATIONS = 10
 populationSize = 10
 
 numSensorNeurons = 4
