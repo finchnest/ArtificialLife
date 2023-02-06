@@ -12,7 +12,7 @@ class HILL_CLIMBER:
 
         for currentGeneration in range(c.NUMBER_OF_GENERATIONS):
             print()
-            print("CASE-----> ", currentGeneration)
+            print("Generation-----> ", currentGeneration)
             self.Evolve_For_One_Generation()
 
     def Evolve_For_One_Generation(self):
@@ -38,6 +38,6 @@ class HILL_CLIMBER:
         if self.parent.fitness < self.child.fitness :
             self.parent = self.child
     def Print(self):
-        print("<------>")
-        print("parent fitness is ", self.parent.fitness, " and child fitness ",self.child.fitness)
-        print("<------>")
+        print()
+        print("parent_fitness: ", self.parent.fitness, " child_fitness: ",self.child.fitness)
+        print()

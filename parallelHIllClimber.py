@@ -21,13 +21,12 @@ class PARALLEL_HILL_CLIMBER:
 
     def Evolve(self):
         
-        
+         
         self.Evaluate(self.parents)
-
 
         for currentGeneration in range(c.NUMBER_OF_GENERATIONS):
             print()
-            print("CASE-----> ", currentGeneration)
+            print("Generation-----> ", currentGeneration)
             self.Evolve_For_One_Generation()
 
 
@@ -64,6 +63,7 @@ class PARALLEL_HILL_CLIMBER:
     def Mutate(self):
         for parent in self.parents:
             self.children[parent].Mutate()
+
     def Select(self):
         for parent in self.parents:
             if self.parents[parent].fitness < self.children[parent].fitness :

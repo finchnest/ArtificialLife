@@ -6,7 +6,7 @@ phaseOffset = np.pi/4
 
 ITERATION = 100
 
-NUMBER_OF_GENERATIONS = 2
+NUMBER_OF_GENERATIONS = 3
 populationSize = 2
 
 numSensorNeurons = 4
