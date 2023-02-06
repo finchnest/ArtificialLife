@@ -4,16 +4,7 @@ import os
 import random
 import time
 
-length = 1
-width = 1
-height = 1
-
-x = 0
-y = 0
-z = 0.5
-
 import constants as c
-
 
 class SOLUTION:
     def __init__(self, myID):
@@ -22,24 +13,19 @@ class SOLUTION:
     def Set_ID(self,ID):
         self.myID = ID
     def Evaluate(self, GUI):
-
         
         self.Start_Simulation(GUI)
         self.Wait_For_Simulation_To_End()
 
-        
 
     def Start_Simulation(self, GUI):
         self.directOrGUI = "GUI " if GUI else "DIRECT "
-        # print("--- command about to run ----", self.ctr)
 
-       
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
 
         os.system("python3 simulate.py "+ self.directOrGUI +str(self.myID)+ " 2&>1 &")
-
 
 
     def Wait_For_Simulation_To_End(self):
@@ -51,16 +37,12 @@ class SOLUTION:
         with open(self.fitnessFileName,"r") as fitness_info :
             self.fitness = float(fitness_info.read())
 
-            # print("================")
-            # print("fitness value is ==> ", self.fitness)
-            # print("================")
-        
         os.system("rm "+ self.fitnessFileName)
 
 
     def Create_World(self):
         pyrosim.Start_SDF("world.sdf")
-        pyrosim.Send_Cube(name="Box", pos=[-4,y,z] , size=[length, width, height])
+        pyrosim.Send_Cube(name="Box", pos=[-4,0,0.5] , size=[1, 1, 1])
         pyrosim.End()
 
 

@@ -5,7 +5,7 @@ import pybullet as p
 
 
 class MOTOR:
-    def __init__(self, jointName, amplitude = c.back_amplitude, frequency = c.back_frequency,offset = c.back_phaseOffset):
+    def __init__(self, jointName, amplitude = c.amplitude, frequency = c.frequency,offset = c.phaseOffset):
         self.jointName = jointName
 
         self.amplitude = amplitude
@@ -23,7 +23,7 @@ class MOTOR:
             jointName = self.jointName, 
             controlMode = p.POSITION_CONTROL,
             targetPosition =desiredAngle,
-            maxForce = 500)
+            maxForce = 500) 
 
     # def Save_Values(self):
     #     np.save('data/'+self.jointName +'_targetAngles.npy',self.motorValues)
