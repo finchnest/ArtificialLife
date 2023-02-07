@@ -10,7 +10,6 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
 
-        self.fitList = []
 
         os.system("rm brain*.nndf")
         os.system("rm fitness*.nndf")
@@ -50,43 +49,22 @@ class PARALLEL_HILL_CLIMBER:
         self.Print()
         self.Select()
 
-        
-
 
     def Show_Best(self):
-        self.high_fit_par = None
-        self.low_fit_par = None
-        self.max = 0
-        self.min = 0
-        
 
-        for k,v in self.parents.items():
+        self.max_key = next(iter(self.parents))
+        self.min_key = next(iter(self.parents))
 
+        for key in self.parents:
+            if self.parents[key].fitness > self.parents[self.max_key].fitness:
+                self.max_key = key
+            if self.parents[key].fitness < self.parents[self.min_key].fitness:
+                self.min_key = key
 
-            if (v.fitness > self.max):
-                self.max = v.fitness
-                self.high_fit_par = k
+        print("highest fit: ", self.parents[self.max_key].fitness, " lowest fit: ", self.parents[self.min_key].fitness)
 
-        for k2,v2 in self.children.items():
-
-
-            if ((v2.fitness - self.min) > 0):
-                self.min = v2.fitness
-                self.low_fit_par = k2
-
-        for (k,v), (k2,v2) in zip(self.parents.items(), self.children.items()):
-
-            print("parent: ",v.fitness, "child: ", v2.fitness)
-
-            if ((min(v2.fitness, v.fitness) - self.min) > 0):
-                self.min = min(v2.fitness, v.fitness)
-                self.low_fit_par = k2
-        
-        
-        print("highest fit: ", self.max, " lowest fit: ", self.min)
-
-        self.parents[self.high_fit_par].Start_Simulation(GUI=True)
-        self.parents[self.low_fit_par].Start_Simulation(GUI=True)
+        self.parents[self.max_key].Start_Simulation(GUI=True)
+        self.parents[self.min_key].Start_Simulation(GUI=True)
 
 
     def Spawn(self):
