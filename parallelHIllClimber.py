@@ -12,8 +12,8 @@ class PARALLEL_HILL_CLIMBER:
 
         self.fitList = []
 
-        # os.system("rm brain*.nndf")
-        # os.system("rm fitness*.nndf")
+        os.system("rm brain*.nndf")
+        os.system("rm fitness*.nndf")
 
         for par in range(c.populationSize):
             self.parents[par] = SOLUTION(self.nextAvailableID)
