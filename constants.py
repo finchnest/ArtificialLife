@@ -1,17 +1,19 @@
 import numpy as np
 
 amplitude = np.pi/4
-frequency = 10
+frequency = 100
 phaseOffset = np.pi/4
 
-ITERATION = 100
+ITERATION = 200
 
-NUMBER_OF_GENERATIONS = 3
-populationSize = 2
+NUMBER_OF_GENERATIONS = 4
+populationSize = 1
 
-numSensorNeurons = 4
-numMotorNeurons = 8
+numSensorNeurons = 8
+numMotorNeurons = 12
 
 linksSize = 9
 
-motorJointRange = 0.2
+motorJointRange = 0.1
+
+

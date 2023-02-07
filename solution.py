@@ -10,6 +10,7 @@ class SOLUTION:
     def __init__(self, myID):
         self.myID = myID
         self.weight = 2 * (np.random.rand(c.numSensorNeurons, c.numMotorNeurons) - 1)
+        self.innerLegs = [0.2,0.2,1]
     def Set_ID(self,ID):
         self.myID = ID
     def Evaluate(self, GUI):
@@ -50,6 +51,11 @@ class SOLUTION:
         randomRow = random.randint(0,c.numSensorNeurons - 1)
         randomCol = random.randint(0,c.numMotorNeurons  - 1)
         self.weight[randomRow,randomCol] = random.random() * 2 - 1
+        self.innerLegs = [
+            np.random.uniform(low=0.2, high=0.4, size=1), 
+            np.random.uniform(low=0.2, high=0.4, size=1),
+            np.random.uniform(low=0.8, high=1.2, size=1)
+            ]
 
 
     def Create_Body(self):
@@ -64,6 +70,28 @@ class SOLUTION:
         #Front_lower
         pyrosim.Send_Joint(name="FrontLeg_LowerFrontLeg", parent="FrontLeg",child="LowerFrontLeg", type="revolute",position=[0, 1, 0],jointAxis='0 1 0')
         pyrosim.Send_Cube(name="LowerFrontLeg", pos=[0,0,-0.5], size = [0.2,0.2,1])
+
+        ###
+
+
+
+        #FR
+        pyrosim.Send_Joint(name="Torso_FRLowerLeg", parent="Torso",child="FRLowerLeg", type="revolute",position=[0.5,0.5,1],jointAxis='1 1 0')
+        pyrosim.Send_Cube(name="FRLowerLeg", pos=[0,0,-0.5], size = self.innerLegs)
+        #FL
+        pyrosim.Send_Joint(name="Torso_FLLowerLeg", parent="Torso",child="FLLowerLeg", type="revolute",position=[-0.5,0.5,1],jointAxis='0 1 1')
+        pyrosim.Send_Cube(name="FLLowerLeg", pos=[0,0,-0.5], size = self.innerLegs)
+        #BR
+        pyrosim.Send_Joint(name="Torso_BRLowerLeg", parent="Torso",child="BRLowerLeg", type="revolute",position=[0.5,-0.5,1],jointAxis='1 0 0')
+        pyrosim.Send_Cube(name="BRLowerLeg", pos=[0,0,-0.5], size = self.innerLegs)
+        #BL
+        pyrosim.Send_Joint(name="Torso_BLLowerLeg", parent="Torso",child="BLLowerLeg", type="revolute",position=[-0.5,-0.5,1],jointAxis='0 0 1')
+        pyrosim.Send_Cube(name="BLLowerLeg", pos=[0,0,-0.5], size = self.innerLegs)
+
+
+
+        ### Many legs make light work ###
+
 
         #Back_upper
         pyrosim.Send_Joint(name="Torso_BackLeg", parent="Torso",child="BackLeg", type="revolute",position=[0, -0.5, 1],jointAxis='1 0 0')
@@ -109,8 +137,10 @@ class SOLUTION:
         
         # pyrosim.Send_Motor_Neuron( name = 4, jointName = "Torso_BackLeg")
 
-        self.sensors = ["LowerLeftLeg", "LowerRightLeg", "LowerFrontLeg", "LowerBackLeg"]
-        self.joints = ["Torso_FrontLeg", "FrontLeg_LowerFrontLeg", "Torso_BackLeg", "BackLeg_LowerBackLeg", "Torso_RightLeg" , "RightLeg_LowerRightLeg", "Torso_LeftLeg","LeftLeg_LowerLeftLeg" ]
+        self.sensors = ["LowerLeftLeg", "LowerRightLeg", "LowerFrontLeg", "LowerBackLeg", "FRLowerLeg", "FLLowerLeg", "BRLowerLeg", "BLLowerLeg"]
+        self.joints = ["Torso_FrontLeg", "FrontLeg_LowerFrontLeg", "Torso_BackLeg", "BackLeg_LowerBackLeg", "Torso_RightLeg" , "RightLeg_LowerRightLeg", "Torso_LeftLeg","LeftLeg_LowerLeftLeg", 
+        "Torso_FRLowerLeg", "Torso_FLLowerLeg", "Torso_BRLowerLeg", "Torso_BLLowerLeg"
+        ]
 
         self.name = 0
         for link in range(len(self.sensors)) :

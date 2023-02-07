@@ -44,11 +44,8 @@ class ROBOT:
         # self.position0fLinkZero = self.stateOfLinkZero[0]
         # self.xCoordinateOfLinkZero = self.position0fLinkZero[0]
 
-
         self.basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
-
         self.basePosition = self.basePositionAndOrientation[0]
-
         self.xPosition = self.basePosition[0]
 
         f = open(self.tmp,'w')
@@ -71,7 +68,7 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange 
+                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange * x/10
 
                 self.motors[jointName].Set_Value(self.robot, desiredAngle)
 

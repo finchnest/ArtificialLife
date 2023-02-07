@@ -10,14 +10,16 @@ class PARALLEL_HILL_CLIMBER:
         self.parents = {}
         self.nextAvailableID = 0
 
-        os.system("rm brain*.nndf")
-        os.system("rm fitness*.nndf")
+        self.fitList = []
+
+        # os.system("rm brain*.nndf")
+        # os.system("rm fitness*.nndf")
 
         for par in range(c.populationSize):
             self.parents[par] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
 
-
+       
 
     def Evolve(self):
         
@@ -30,8 +32,9 @@ class PARALLEL_HILL_CLIMBER:
             self.Evolve_For_One_Generation()
 
 
-
     def Evaluate(self,solutions, GUI = False):
+        
+
         for parent in solutions:
             solutions[parent].Start_Simulation(GUI)
 
@@ -39,6 +42,8 @@ class PARALLEL_HILL_CLIMBER:
             solutions[parent].Wait_For_Simulation_To_End()
      
     def Evolve_For_One_Generation(self):
+
+       
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
@@ -49,9 +54,40 @@ class PARALLEL_HILL_CLIMBER:
 
 
     def Show_Best(self):
-        low_fit_par = max(self.parents.keys(), key = lambda par : self.parents[par].fitness)
+        self.high_fit_par = None
+        self.low_fit_par = None
+        self.max = 0
+        self.min = 0
+        
 
-        self.parents[low_fit_par].Start_Simulation(GUI=True)
+        for k,v in self.parents.items():
+
+
+            if (v.fitness > self.max):
+                self.max = v.fitness
+                self.high_fit_par = k
+
+        for k2,v2 in self.children.items():
+
+
+            if ((v2.fitness - self.min) > 0):
+                self.min = v2.fitness
+                self.low_fit_par = k2
+
+        for (k,v), (k2,v2) in zip(self.parents.items(), self.children.items()):
+
+            print("parent: ",v.fitness, "child: ", v2.fitness)
+
+            if ((min(v2.fitness, v.fitness) - self.min) > 0):
+                self.min = min(v2.fitness, v.fitness)
+                self.low_fit_par = k2
+        
+        
+        print("highest fit: ", self.max, " lowest fit: ", self.min)
+
+        self.parents[self.high_fit_par].Start_Simulation(GUI=True)
+        self.parents[self.low_fit_par].Start_Simulation(GUI=True)
+
 
     def Spawn(self):
         self.children = {}
@@ -76,5 +112,6 @@ class PARALLEL_HILL_CLIMBER:
         for (k,v), (k2,v2) in zip(self.parents.items(), self.children.items()):
 
             print("parent: ",v.fitness, "child: ", v2.fitness)
+
 
         print()
