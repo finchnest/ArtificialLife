@@ -11,7 +11,6 @@ class PARALLEL_HILL_CLIMBER:
         self.nextAvailableID = 0
 
 
-        
 
         for par in range(c.populationSize):
             self.parents[par] = SOLUTION(self.nextAvailableID)
@@ -19,6 +18,7 @@ class PARALLEL_HILL_CLIMBER:
 
         os.system("rm brain*.nndf")
         os.system("rm fitness*.nndf")
+
 
     def Evolve(self):
         
@@ -50,7 +50,6 @@ class PARALLEL_HILL_CLIMBER:
         self.Print()
         self.Select()
 
-
     def Show_Best(self):
 
         self.max_key = next(iter(self.parents))
@@ -65,7 +64,6 @@ class PARALLEL_HILL_CLIMBER:
         print("highest fit: ", self.parents[self.max_key].fitness, " lowest fit: ", self.parents[self.min_key].fitness)
 
         self.parents[self.max_key].Start_Simulation(GUI=True)
-
 
     def Spawn(self):
         self.children = {}

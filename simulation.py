@@ -26,6 +26,7 @@ class SIMULATION:
         for x in range(c.ITERATION):
             if self.GUI :
                 time.sleep(1/30)
+
             p.stepSimulation()
 
             self.robot.Sense(x)

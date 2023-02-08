@@ -10,6 +10,7 @@ class SOLUTION:
     def __init__(self, myID):
         self.myID = myID
         self.weight = 5 * (np.random.rand(c.numSensorNeurons, c.numMotorNeurons) - 1)
+
         self.innerLegs = [0.2,0.2,1]
     def Set_ID(self,ID):
         self.myID = ID
@@ -27,6 +28,7 @@ class SOLUTION:
         self.Create_Brain()
 
         os.system("python3 simulate.py "+ self.directOrGUI +str(self.myID)+ " 2&>log.log &")
+
 
     def Wait_For_Simulation_To_End(self):
         self.fitnessFileName = "fitness"+str(self.myID)+".txt"
@@ -54,6 +56,7 @@ class SOLUTION:
             np.random.uniform(low=0.2, high=0.6, size=1) * 2 - 1, 
             np.random.uniform(low=0.2, high=0.6, size=1) * 2 - 1,
             np.random.uniform(low=0.7, high=1.3, size=1) * 2 - 1
+
             ]
 
 
@@ -69,6 +72,7 @@ class SOLUTION:
         #Front_lower
         pyrosim.Send_Joint(name="FrontLeg_LowerFrontLeg", parent="FrontLeg",child="LowerFrontLeg", type="revolute",position=[0, 1, 0],jointAxis='0 1 0')
         pyrosim.Send_Cube(name="LowerFrontLeg", pos=[0,0,-0.5], size = self.innerLegs)
+
 
         ###
 
@@ -99,6 +103,7 @@ class SOLUTION:
         #Back_lower
         pyrosim.Send_Joint(name="BackLeg_LowerBackLeg", parent="BackLeg",child="LowerBackLeg", type="revolute",position=[0, -1, 0],jointAxis='0 1 0')
         pyrosim.Send_Cube(name="LowerBackLeg", pos=[0,0,-0.5], size = self.innerLegs)
+
 
         #Right_upper
         pyrosim.Send_Joint(name="Torso_RightLeg", parent="Torso",child="RightLeg", type="revolute",position=[0.5, 0, 1],jointAxis='0 1 0')
