@@ -47,9 +47,12 @@ class ROBOT:
         self.basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
         self.basePosition = self.basePositionAndOrientation[0]
         self.xPosition = self.basePosition[0]
+        self.yPosition = self.basePosition[1]
+        self.zPosition = self.basePosition[2]
 
         f = open(self.tmp,'w')
-        f.write(str(self.xPosition))
+        f.write(str(self.zPosition))
+
         f.close()
 
         os.system("mv "+ self.tmp +" "+ self.fitness)
@@ -59,7 +62,8 @@ class ROBOT:
 
         for jointName in pyrosim.jointNamesToIndices:
             if jointName == 'Torso_FrontLeg':
-                self.motors[jointName] = MOTOR(jointName,frequency= c.frequency/2)
+                self.motors[jointName] = MOTOR(jointName,frequency= c.frequency/4)
+
             else:
                 self.motors[jointName] = MOTOR(jointName)
     
@@ -68,7 +72,8 @@ class ROBOT:
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange * x/10
+                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
+
 
                 self.motors[jointName].Set_Value(self.robot, desiredAngle)
 
