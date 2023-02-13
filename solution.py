@@ -93,28 +93,19 @@ class SOLUTION:
 
         pyrosim.Start_NeuralNetwork("brain"+str(self.myID) +".nndf")
 
-        self.name = 0
 
-        for y in range(len(self.links_with_sensor)):
-            if(self.links_with_sensor[y] == 1):
-                pyrosim.Send_Sensor_Neuron(name = self.name , linkName='Link{}'.format(y))
-            self.name +=1
-        
-        for i in range(self.num_joints):
-            pyrosim.Send_Motor_Neuron(name=i + self.name, jointName='Link{}_Link{}'.format(i, i+1))
-            self.name +=1
+        num_sensors = 0
+        for i in self.links_with_sensor:
+            pyrosim.Send_Sensor_Neuron(name=num_sensors, linkName='Link{}'.format(i))
+            num_sensors += 1
 
+        for j in range(self.num_joints):
+            pyrosim.Send_Motor_Neuron(name= j + num_sensors, jointName='Link{}_Link{}'.format(j, j + 1))
 
-        self.sensors_count = np.count_nonzero(np.array(self.links_with_sensor))
-    
-    
-        self.weights = np.random.rand(self.sensors_count, self.num_joints)
+        self.weights = np.random.rand(num_sensors, self.num_joints)
 
-
-
-
-        for sensor in range(self.sensors_count):
-            for motor in range(self.num_joints):
-                pyrosim.Send_Synapse(sourceNeuronName = sensor, targetNeuronName = motor + self.sensors_count, weight = self.weight[sensor,motor] )
+        for i in range(num_sensors):
+            for j in range(self.num_joints):
+                pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + num_sensors, weight=self.weights[i, j])
 
         pyrosim.End()
