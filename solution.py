@@ -23,8 +23,8 @@ class SOLUTION:
         self.directOrGUI = "GUI " if GUI else "DIRECT "
 
         self.Create_World()
-        self.Create_Body()
-        self.Create_Brain()
+        # self.Create_Body()
+        # self.Create_Brain()
 
         os.system("python3 simulate.py " + self.directOrGUI + str(self.myID) + " 2&>log.log &")
 
@@ -86,6 +86,8 @@ class SOLUTION:
      
         pyrosim.End()
 
+        while not os.path.exists('body.urdf'):
+                    time.sleep(.01)
 
 
     def Create_Brain(self):
