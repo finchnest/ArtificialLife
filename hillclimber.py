@@ -12,7 +12,7 @@ class HILL_CLIMBER:
         os.system("rm fitness*.nndf")
         self.id = 1
         self.parent = SOLUTION(self.id)
-        self.id += 1
+       
     def Evolve(self):
         self.parent.Evaluate(GUI=False)
 

@@ -11,5 +11,5 @@ class SENSOR:
     def Print_Sensor_Values(self):
         print(self.linkName, self.values)
     
-    def save_values(self):
-        np.save('data/'+self.linkName +'_sensorValues.npy',self.values)
+    # def save_values(self):
+    #     np.save('data/'+self.linkName +'_sensorValues.npy',self.values)

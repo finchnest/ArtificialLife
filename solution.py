@@ -130,16 +130,7 @@ class SOLUTION:
 
 
         pyrosim.Start_NeuralNetwork("brain"+str(self.myID) +".nndf")
-        
-        # pyrosim.Send_Sensor_Neuron(name = 0, linkName = "Torso")
 
-        # pyrosim.Send_Sensor_Neuron(name = 1, linkName = "FrontLeg")
-
-        # pyrosim.Send_Sensor_Neuron(name = 2, linkName = "BackLeg")
-
-        # pyrosim.Send_Motor_Neuron( name = 3, jointName = "Torso_FrontLeg")
-        
-        # pyrosim.Send_Motor_Neuron( name = 4, jointName = "Torso_BackLeg")
 
         self.sensors = ["LowerLeftLeg", "LowerRightLeg", "LowerFrontLeg", "LowerBackLeg", "FRLowerLeg", "FLLowerLeg", "BRLowerLeg", "BLLowerLeg"]
         self.joints = ["Torso_FrontLeg", "FrontLeg_LowerFrontLeg", "Torso_BackLeg", "BackLeg_LowerBackLeg", "Torso_RightLeg" , "RightLeg_LowerRightLeg", "Torso_LeftLeg","LeftLeg_LowerLeftLeg", 

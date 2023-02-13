@@ -29,7 +29,6 @@ class PARALLEL_HILL_CLIMBER:
             print()
             print("Generation-----> ", currentGeneration)
             self.Evolve_For_One_Generation()
-        self.Show_Best()
 
 
     def Evaluate(self,solutions, GUI = False):
