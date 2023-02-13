@@ -24,8 +24,8 @@ class SIMULATION:
     def Run(self):
 
         for x in range(c.ITERATION):
-            if self.GUI :
-                time.sleep(1/30)
+            # if self.GUI :
+            #     time.sleep(1/30)
 
             p.stepSimulation()
 

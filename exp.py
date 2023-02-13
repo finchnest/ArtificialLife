@@ -1,7 +1,7 @@
 import random
 
-arr = []
-for x in range(40):
-    arr.append(random.random())
-print(arr)
-    
+import numpy as np
+
+
+B= np.count_nonzero(np.array([0, 0,0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0])) 
+print(B)
