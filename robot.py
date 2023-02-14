@@ -17,12 +17,12 @@ class ROBOT:
         
         self.tmp = "tmp"+str(self.solutionID)+".txt"
 
-        self.robot = p.loadURDF("body.urdf")
+        self.robotID = p.loadURDF("body.urdf")
 
         self.nn = NEURAL_NETWORK(self.brain)
 
 
-        pyrosim.Prepare_To_Simulate(self.robot)
+        pyrosim.Prepare_To_Simulate(self.robotID)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
@@ -40,18 +40,12 @@ class ROBOT:
             self.sensors[sensor].Get_Value(x) 
 
     def Get_Fitness(self):
-        # self.stateOfLinkZero = p.getLinkState(self.robot, 0)
-        # self.position0fLinkZero = self.stateOfLinkZero[0]
-        # self.xCoordinateOfLinkZero = self.position0fLinkZero[0]
-
-        self.basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
-        self.basePosition = self.basePositionAndOrientation[0]
-        self.xPosition = self.basePosition[0]
-        self.yPosition = self.basePosition[1]
-        self.zPosition = self.basePosition[2]
+        self.stateOfLinkZero = p.getLinkState(self.robotID, 0)
+        self.position0fLinkZero = self.stateOfLinkZero[0]
+        self.xCoordinateOfLinkZero = self.position0fLinkZero[0]
 
         f = open(self.tmp,'w')
-        f.write(str(self.zPosition))
+        f.write(str(self.xCoordinateOfLinkZero))
 
         f.close()
 
@@ -61,7 +55,7 @@ class ROBOT:
         self.motors = {}
 
         for jointName in pyrosim.jointNamesToIndices:
-            self.motors[jointName] = MOTOR(jointName, self.robot)
+            self.motors[jointName] = MOTOR(jointName, self.robotID)
     
     def Act(self, x):
 

@@ -21,11 +21,12 @@ class SIMULATION:
         self.world = WORLD()
         self.robot = ROBOT(self.solutionID)
 
+    
     def Run(self):
 
         for x in range(c.ITERATION):
             # if self.GUI :
-            #     time.sleep(1/30)
+            #     time.sleep(1/3)
 
             p.stepSimulation()
 
