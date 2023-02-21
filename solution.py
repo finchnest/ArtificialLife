@@ -55,10 +55,10 @@ class SOLUTION:
 
         pyrosim.Start_URDF("body.urdf")
 
-        self.first_cube_size = [random.random(), random.random(), random.random()]        
-        self.first_cube_pos = [0, 0, self.first_cube_size[1]/2]
+        self.cube_size = [random.random(), random.random(), random.random()]        
+        self.first_cube_pos = [0, 0, 2 + self.cube_size[2]/2]
 
-        self.num_links = random.randint(1, 7)
+        self.num_links = random.randint(5, 10)
         self.num_joints = self.num_links - 1
 
 
@@ -74,24 +74,78 @@ class SOLUTION:
         print("links with sensor ", self.links_with_sensor)
 
 
-        pyrosim.Send_Cube(name="Link0", pos=self.first_cube_pos, size=self.first_cube_size, color= 0 in self.links_with_sensor)
+        pyrosim.Send_Cube(name="Link0", pos=self.first_cube_pos, size=self.cube_size, color= 0 in self.links_with_sensor)
 
-        pyrosim.Send_Joint(name="Link0_Link1", parent="Link0", child="Link1", type="revolute", position=[0, self.first_cube_size[1]/2, self.first_cube_size[2]], jointAxis="1 0 0")
+        pyrosim.Send_Joint(name="Link0_Link1", parent="Link0", child="Link1", type="revolute", position=[0, self.cube_size[1]/2, 2 + self.cube_size[2]], jointAxis="1 0 0")
 
-        for x in range(1, self.num_links):
-            self.cube_size = [random.random(), random.random(), random.random()]
-        
-            pyrosim.Send_Cube(name="Link{}".format(x), pos=[0, self.cube_size[1] / 2, self.cube_size[2] / 2], size=self.cube_size, color= x in self.links_with_sensor)
+        pyrosim.Send_Cube(name="Link1", pos=[0, self.cube_size[1]/2, -self.cube_size[2]/2], size=self.cube_size, color= 1 in self.links_with_sensor)
 
+        self.prev_size = self.cube_size
+        self.new_joint = [0, self.prev_size[1]/2, -self.prev_size[2]/2]
 
-            if x == self.num_links - 1:
-                break
-            pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[0, self.cube_size[1], self.cube_size[2]], jointAxis="1 0 0")
+        for x in range(1, self.num_links - 1):
+            self.random_cube_size = [random.random(), random.random(), random.random()]
+            #eight joint directions
+            self.corners = random.randint(0, 7)
+            if self.corners == 0:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0], self.new_joint[1] + self.prev_size[1]/2,self.new_joint[2] + self.prev_size[2]/2], jointAxis="1 0 0")
 
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[0, self.random_cube_size[1]/2, -self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
 
-     
+                self.new_joint = [0, self.random_cube_size[1]/2, -self.random_cube_size[2]/2]
+                # if x == self.num_links - 1:
+                #     break
+            elif self.corners == 1:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0], self.new_joint[1] + self.prev_size[1]/2,self.new_joint[2] + self.prev_size[2]/2], jointAxis="1 0 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[0, self.random_cube_size[1]/2, self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [0, self.random_cube_size[1]/2, self.random_cube_size[2]/2]
+
+            elif self.corners == 2:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0] + self.prev_size[0]/2, self.new_joint[1] ,self.new_joint[2] + self.prev_size[2]/2], jointAxis="0 1 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[self.random_cube_size[0]/2, 0, -self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [self.random_cube_size[0]/2, 0, -self.random_cube_size[2]/2]
+            elif self.corners == 3:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0] + self.prev_size[0]/2, self.new_joint[1] ,self.new_joint[2] + self.prev_size[2]/2], jointAxis="0 1 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[self.random_cube_size[0]/2, 0, self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [self.random_cube_size[0]/2, 0, self.random_cube_size[2]/2]
+            elif self.corners == 4:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0], self.new_joint[1] - self.prev_size[1]/2,self.new_joint[2] + self.prev_size[2]/2], jointAxis="1 0 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[0, -self.random_cube_size[1]/2, -self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [0, -self.random_cube_size[1]/2, -self.random_cube_size[2]/2]
+
+            elif self.corners == 5:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0], self.new_joint[1] - self.prev_size[1]/2,self.new_joint[2] + self.prev_size[2]/2], jointAxis="1 0 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[0, -self.random_cube_size[1]/2, self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [0, -self.random_cube_size[1]/2, self.random_cube_size[2]/2]
+
+            elif self.corners == 6:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0] - self.prev_size[0]/2, self.new_joint[1],self.new_joint[2] + self.prev_size[2]/2], jointAxis="0 1 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[-self.random_cube_size[0]/2, 0, -self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [-self.random_cube_size[0]/2, 0, -self.random_cube_size[2]/2]
+                # if x == self.num_links - 1:
+                #     break
+            elif self.corners == 7:
+                pyrosim.Send_Joint(name="Link{}_Link{}".format(x, x + 1), parent="Link{}".format(x), child="Link{}".format(x + 1), type="revolute", position=[self.new_joint[0] - self.prev_size[0]/2, self.new_joint[1],self.new_joint[2] + self.prev_size[2]/2], jointAxis="0 1 0")
+
+                pyrosim.Send_Cube(name="Link{}".format(x + 1), pos=[-self.random_cube_size[0]/2, 0, self.random_cube_size[2]/2], size=self.random_cube_size, color= (x+1) in self.links_with_sensor)
+
+                self.new_joint = [-self.random_cube_size[0]/2, 0, self.random_cube_size[2]/2]
+
+            self.prev_size = self.random_cube_size
+
         pyrosim.End()
-
 
 
     def Create_Brain(self):
@@ -99,10 +153,7 @@ class SOLUTION:
         os.system("rm brain*.nndf")
         os.system("rm fitness*.nndf")
         
-
         pyrosim.Start_NeuralNetwork("brain"+str(self.myID) +".nndf")
-
-
         self.num_sensors = 0
         for i in self.links_with_sensor:
             pyrosim.Send_Sensor_Neuron(name=self.num_sensors, linkName='Link{}'.format(i))
