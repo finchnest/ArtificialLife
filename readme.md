@@ -10,3 +10,4 @@ Running 3dBody.py will result in a 3d creature in 3d space. To achieve this I di
 - Then the Robot body was generated with randomly sized blocks at a random position around a previously positioned block. In other words, there were 8 directions to chose from for a given block.
 - Then I connected each sensor to each motor by creating synapses. Thus all sensors and motors are connected. 
 - Different kinds of body shapes are possible: like snakes or a randomly connected 3d creature. 
+
