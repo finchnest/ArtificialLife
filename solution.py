@@ -69,10 +69,9 @@ class SOLUTION:
             if coin == 1:
                 self.links_with_sensor.append(x)
 
-        
+
 
         print("links with sensor ", self.links_with_sensor)
-
 
         pyrosim.Send_Cube(name="Link0", pos=self.first_cube_pos, size=self.cube_size, color= 0 in self.links_with_sensor)
 
