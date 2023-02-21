@@ -11,3 +11,5 @@ Running 3dBody.py will result in a 3d creature in 3d space. To achieve this I di
 - Then I connected each sensor to each motor by creating synapses. Thus all sensors and motors are connected. 
 - Different kinds of body shapes are possible: like snakes or a randomly connected 3d creature. 
 
+Example of joint connection of the creatures links are shown in the link below: https://github.com/finchnest/ArtificialLife/blob/assign7/IMG_0457.HEIC
+
