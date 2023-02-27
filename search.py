@@ -1,14 +1,23 @@
 import os
 
-from  hillclimber import HILL_CLIMBER
 from parallelHIllClimber import PARALLEL_HILL_CLIMBER
-
-# hc = HILL_CLIMBER()
-# hc.Evolve()
-# hc.Show_Best()
+import matplotlib.pyplot as plt
+import constants as c
 
 
-phc = PARALLEL_HILL_CLIMBER()
-phc.Evolve()
-phc.Show_Best()
 
+for x in range(1, 6):
+    phc = PARALLEL_HILL_CLIMBER()
+    phc.Evolve()
+    phc.Show_Best()
+
+    plt.plot([i + 1 for i in range(c.NUMBER_OF_GENERATIONS)], 
+             phc.best_creature_fitness, 
+             label="random seed {}".format(x))
+
+plt.title("Fitness of the best creature at each generation")
+plt.xlabel("Generation")
+plt.ylabel("Fitness")
+plt.legend()
+plt.grid()
+plt.savefig("Best_fitnesses.jpg")

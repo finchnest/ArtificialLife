@@ -58,7 +58,7 @@ class SOLUTION:
         self.cube_size = [random.random(), random.random(), random.random()]        
         self.first_cube_pos = [0, 0, 2 + self.cube_size[2]/2]
 
-        self.num_links = random.randint(5, 10)
+        self.num_links = random.randint(3, 5)
         self.num_joints = self.num_links - 1
 
 

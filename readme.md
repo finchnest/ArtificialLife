@@ -13,3 +13,8 @@ Running 3dBody.py will result in a 3d creature in 3d space. To achieve this I di
 
 Example of joint connection of the creatures links are shown in the link below: https://github.com/finchnest/ArtificialLife/blob/assign7/IMG_0457.HEIC
 
+
+
+Reference
+
+This work takes inspiration from ludobots subreddit. www.reddit.com/ludobots.

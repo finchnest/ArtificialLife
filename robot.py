@@ -12,22 +12,21 @@ class ROBOT:
     def __init__(self, solutionID):
         self.solutionID = solutionID
 
-        self.brain = "brain"+str(self.solutionID)+".nndf"
-        self.fitness = "fitness"+str(self.solutionID)+".txt"
-        
-        self.tmp = "tmp"+str(self.solutionID)+".txt"
+        brain = "brain" + str(self.solutionID) + ".nndf"
+        self.fitness = "fitness" + str(self.solutionID) + ".txt"
+        self.tmp = "tmp" + str(self.solutionID) + ".txt"
+        body = "body" + str(self.solutionID) + ".urdf"
 
-        self.robotID = p.loadURDF("body.urdf")
-
-        self.nn = NEURAL_NETWORK(self.brain)
+        self.robotID = p.loadURDF(body)
+        self.nn = NEURAL_NETWORK(brain)
 
 
         pyrosim.Prepare_To_Simulate(self.robotID)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
 
-        os.system("rm "+ self.brain)
-
+        os.system("rm "+ brain)      
+        os.system("rm "+ body)
 
 
     def Prepare_To_Sense(self):
@@ -40,12 +39,12 @@ class ROBOT:
             self.sensors[sensor].Get_Value(x) 
 
     def Get_Fitness(self):
-        self.stateOfLinkZero = p.getLinkState(self.robotID, 0)
-        self.position0fLinkZero = self.stateOfLinkZero[0]
-        self.xCoordinateOfLinkZero = self.position0fLinkZero[0]
+        stateOfLinkZero = p.getLinkState(self.robotID, 0)
+        position0fLinkZero = stateOfLinkZero[0]
+        xCoordinateOfLinkZero = position0fLinkZero[0]
 
         f = open(self.tmp,'w')
-        f.write(str(self.xCoordinateOfLinkZero))
+        f.write(str(xCoordinateOfLinkZero))
 
         f.close()
 

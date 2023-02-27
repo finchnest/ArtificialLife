@@ -9,8 +9,7 @@ class PARALLEL_HILL_CLIMBER:
     def __init__(self):
         self.parents = {}
         self.nextAvailableID = 0
-
-
+        self.best_creature_fitness = []
 
         for par in range(c.populationSize):
             self.parents[par] = SOLUTION(self.nextAvailableID)
@@ -50,43 +49,40 @@ class PARALLEL_HILL_CLIMBER:
         self.Select()
 
     def Show_Best(self):
+        
+        best_parent = self.parents[0]
+        for parent in self.parents.values():
+            if parent.fitness < best_parent.fitness:
+                best_parent = parent
 
-        self.max_key = next(iter(self.parents))
-        self.min_key = next(iter(self.parents))
+        print("highest fit: ", best_parent.fitness)
+        best_parent.Start_Simulation(GUI=True)
+        best_parent.Wait_For_Simulation_To_End()
 
-        for key in self.parents:
-            if self.parents[key].fitness > self.parents[self.max_key].fitness:
-                self.max_key = key
-            if self.parents[key].fitness < self.parents[self.min_key].fitness:
-                self.min_key = key
-
-        print("highest fit: ", self.parents[self.max_key].fitness, " lowest fit: ", self.parents[self.min_key].fitness)
-
-        self.parents[self.max_key].Start_Simulation(GUI=True)
 
     def Spawn(self):
         self.children = {}
-        for parent in self.parents:
-            self.children[parent] = copy.deepcopy(self.parents[parent])
-            self.children[parent].Set_ID(self.nextAvailableID)
+        for p_id in self.parents:
+            self.children[p_id] = copy.deepcopy(self.parents[p_id])
+            self.children[p_id].Set_ID(self.nextAvailableID)
             self.nextAvailableID +=1            
 
     def Mutate(self):
-        for parent in self.parents:
-            self.children[parent].Mutate()
+        for child in self.children.values():
+            child.Mutate()
 
     def Select(self):
-        for parent in self.parents:
-            if self.parents[parent].fitness < self.children[parent].fitness :
-                self.parents[parent] = self.children[parent]
+        bcf = -1
+        for p_id in self.parents:
+            if self.parents[p_id].fitness < self.children[p_id].fitness :
+                self.parents[p_id] = self.children[p_id]
+            bcf = max(self.parents[p_id].fitness, bcf)
+        self.best_creature_fitness.append(bcf)
+            
     def Print(self):
         print()
-
-        # print("pre_parent: ",self.parents[0].fitness, "pre_child: ", self.children[0].fitness)
 
         for (k,v), (k2,v2) in zip(self.parents.items(), self.children.items()):
 
             print("parent: ",v.fitness, "child: ", v2.fitness)
 
-
-        print()

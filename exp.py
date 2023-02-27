@@ -1,9 +1,6 @@
 import random
 
 import numpy as np
+import constants as c
 
-
-B= (np.array([1, 0,0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0])) 
-
-x = True if B[0] == 1 else False
-print(random.randint(0, 1))
+print([j + 1 for j in range(c.NUMBER_OF_GENERATIONS)])
