@@ -167,7 +167,6 @@ class SOLUTION:
 
         pyrosim.End()
 
-        while not os.path.exists('brain{}.nndf'.format(self.myID)):
-            time.sleep(.01)
+        
 
 #last
