@@ -6,7 +6,7 @@ import constants as c
 
 
 
-for x in range(1, 5):
+for x in range(1, 6):
 
     print("Random Seed {}".format(x))
     phc = PARALLEL_HILL_CLIMBER()
