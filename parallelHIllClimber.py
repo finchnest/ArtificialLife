@@ -15,7 +15,8 @@ class PARALLEL_HILL_CLIMBER:
             self.parents[par] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
 
-        os.system("rm brain*.nndf")
+        os.system("rm  brain*.nndf")
+        os.system("rm body*.urdf")
         os.system("rm fitness*.nndf")
 
 
@@ -81,8 +82,5 @@ class PARALLEL_HILL_CLIMBER:
             
     def Print(self):
         print()
-
-        for (k,v), (k2,v2) in zip(self.parents.items(), self.children.items()):
-
-            print("parent: ",v.fitness, "child: ", v2.fitness)
-
+        for index in self.parents.keys():
+            print("child fitness: {}, parent fitness: {}".format(self.children[index].fitness, self.parents[index].fitness))

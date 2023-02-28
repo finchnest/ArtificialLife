@@ -2,12 +2,12 @@ import numpy as np
 
 
 
-ITERATION = 7000
+ITERATION = 10000
 
 motorJointRange = 0.2
 
-NUMBER_OF_GENERATIONS = 10
-populationSize = 10
+NUMBER_OF_GENERATIONS = 50
+populationSize = 5
 
 Max_Force = 100
 

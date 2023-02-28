@@ -6,7 +6,7 @@ import constants as c
 
 
 
-for x in range(1, 6):
+for x in range(1, 2):
     phc = PARALLEL_HILL_CLIMBER()
     phc.Evolve()
     phc.Show_Best()

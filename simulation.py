@@ -15,6 +15,8 @@ class SIMULATION:
 
         self.physicsClient = p.connect(p.GUI if self.GUI else p.DIRECT)
         
+        p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
+
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
 

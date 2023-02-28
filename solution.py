@@ -44,16 +44,11 @@ class SOLUTION:
         pyrosim.End()
 
 
-    def Mutate(self):
-        randomRow = random.randint(0,self.num_sensors - 1)
-        randomCol = random.randint(0,self.num_joints  - 1)
-        self.weight[randomRow,randomCol] = random.random() * 2 - 1
-       
 
 
     def Create_Body(self):
 
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF("body{}.urdf".format(self.myID))
 
         self.cube_size = [random.random(), random.random(), random.random()]        
         self.first_cube_pos = [0, 0, 2 + self.cube_size[2]/2]
@@ -146,25 +141,33 @@ class SOLUTION:
 
         pyrosim.End()
 
+    def Mutate(self):
+        row = np.random.randint(0, len(self.links_with_sensor))
+        column = np.random.randint(0, self.num_joints)
+
+        self.weights[row, column] = 2 * np.random.random() - 1
+       
 
     def Create_Brain(self):
-
-        os.system("rm brain*.nndf")
-        os.system("rm fitness*.nndf")
         
         pyrosim.Start_NeuralNetwork("brain"+str(self.myID) +".nndf")
-        self.num_sensors = 0
+        num_sensors = 0
         for i in self.links_with_sensor:
-            pyrosim.Send_Sensor_Neuron(name=self.num_sensors, linkName='Link{}'.format(i))
-            self.num_sensors += 1
+            pyrosim.Send_Sensor_Neuron(name=num_sensors, linkName='Link{}'.format(i))
+            num_sensors += 1
 
         for j in range(self.num_joints):
-            pyrosim.Send_Motor_Neuron(name= j + self.num_sensors, jointName='Link{}_Link{}'.format(j, j + 1))
+            pyrosim.Send_Motor_Neuron(name= j + num_sensors, jointName='Link{}_Link{}'.format(j, j + 1))
 
-        self.weights = np.random.rand(self.num_sensors, self.num_joints)
+        self.weights = np.random.rand(num_sensors, self.num_joints)
 
-        for i in range(self.num_sensors):
+        for i in range(num_sensors):
             for j in range(self.num_joints):
-                pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + self.num_sensors, weight=self.weights[i, j])
+                pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + num_sensors, weight=self.weights[i, j])
 
         pyrosim.End()
+
+        while not os.path.exists('brain{}.nndf'.format(self.myID)):
+            time.sleep(.01)
+
+#last

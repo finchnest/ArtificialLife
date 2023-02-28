@@ -11,23 +11,18 @@ import os
 class ROBOT:
     def __init__(self, solutionID):
         self.solutionID = solutionID
-
-        brain = "brain" + str(self.solutionID) + ".nndf"
-        self.fitness = "fitness" + str(self.solutionID) + ".txt"
-        self.tmp = "tmp" + str(self.solutionID) + ".txt"
-        body = "body" + str(self.solutionID) + ".urdf"
-
-        self.robotID = p.loadURDF(body)
-        self.nn = NEURAL_NETWORK(brain)
-
+        
+        self.fitness = "fitness"+str(self.solutionID)+".txt"     
+        self.tmp = "tmp"+str(self.solutionID)+".txt"
+      
+        self.robotID = p.loadURDF("body{}.urdf".format(self.solutionID))
+        self.nn = NEURAL_NETWORK("brain{}.nndf".format(self.solutionID))
+        os.system("rm brain{}.nndf".format(self.solutionID))
+        os.system("rm body{}.urdf".format(self.solutionID))
 
         pyrosim.Prepare_To_Simulate(self.robotID)
         self.Prepare_To_Sense()
         self.Prepare_To_Act()
-
-        os.system("rm "+ brain)      
-        os.system("rm "+ body)
-
 
     def Prepare_To_Sense(self):
         self.sensors = {}
@@ -69,6 +64,8 @@ class ROBOT:
         self.nn.Update()
         # self.nn.Print()
         
+
+#last
 
 
 
