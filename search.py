@@ -6,7 +6,9 @@ import constants as c
 
 
 
-for x in range(1, 2):
+for x in range(1, 5):
+
+    print("Random Seed {}".format(x))
     phc = PARALLEL_HILL_CLIMBER()
     phc.Evolve()
     phc.Show_Best()

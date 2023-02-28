@@ -57,16 +57,16 @@ class SOLUTION:
         self.num_joints = self.num_links - 1
 
 
-        self.links_with_sensor = []
+        self.links_with_sensor = [0]
 
-        for x in range(0, self.num_links):
+        for x in range(1, self.num_links):
             coin = random.randint(0, 1)
             if coin == 1:
                 self.links_with_sensor.append(x)
 
 
 
-        print("links with sensor ", self.links_with_sensor)
+        print("Robot {} links with sensor ".format(self.myID), self.links_with_sensor)
 
         pyrosim.Send_Cube(name="Link0", pos=self.first_cube_pos, size=self.cube_size, color= 0 in self.links_with_sensor)
 
