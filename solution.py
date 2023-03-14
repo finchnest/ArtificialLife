@@ -7,10 +7,10 @@ import time
 import constants as c
 
 class SOLUTION:
-    def __init__(self, myID, conn_type):
+    def __init__(self, myID, conn_type, size_adjust):
         self.conn_type = conn_type
         self.myID = myID
-        self.mSize = 1
+        self.mSize = size_adjust
 
     def Set_ID(self,ID):
         self.myID = ID
@@ -203,7 +203,7 @@ class SOLUTION:
 
         for i in range(num_sensors):
             for j in range(self.num_joints):
-                if (self.conn_type == 'selective'):
+                if (self.conn_type == 'SELECTIVE'):
                     if (i % 2 == 0 or j % 2 == 0):
                         pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + num_sensors, weight=self.weights[i, j])
                 else:

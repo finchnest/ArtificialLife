@@ -14,7 +14,7 @@ trials = []
 for conn_type, col in zip(['SELECTIVE', 'ALL'], ['green', 'blue']):
     
     best_fitnesses = []
-    for x in range(1, 6):
+    for x in range(1, 3):
 
         os.system("python3 clean.py")        
         time.sleep(2)

@@ -9,7 +9,10 @@ import numpy as np
 os.system("python3 clean.py")        
 
 for op in range(2):
+
     if op == 0:
+        print("####### Testing Connection Type #######")
+
         trials = []
 
         for conn_type, col in zip(['SELECTIVE', 'ALL'], ['green', 'blue']):
@@ -21,7 +24,7 @@ for op in range(2):
                 time.sleep(2)
 
                 print("------- Connection type {} Random Seed {} --------".format(conn_type, x))
-                phc = PARALLEL_HILL_CLIMBER(conntion_type = conn_type)
+                phc = PARALLEL_HILL_CLIMBER(connection_type = conn_type)
                 phc.Evolve()
                 # phc.Show_Best()
                 best_fitnesses.append(max(phc.best_creature_fitness))
@@ -55,19 +58,22 @@ for op in range(2):
         for trial, ct in zip(trials, ['SELECTIVE', 'ALL']):
             
 
-            f = open('hypo_test_connection_type.txt','w')
-            f.write("STATS for connection type: {}".format(ct))
+            f = open('hypo_test_connection_type_{}.txt'.format(ct),'w')
+            f.write("STATS for connection type: {}\n".format(ct))
             f.write(str(trial))
-            f.write("Mean: {}".format(np.mean(trial)))
-            f.write("Max: {}".format(np.max(trial)))
-            f.write("Std: {}".format(np.std(trial)))
+            f.write("\nMean: {}\n".format(np.mean(trial)))
+            f.write("Max: {}\n".format(np.max(trial)))
+            f.write("Std: {}\n".format(np.std(trial)))
             f.write("-----------------------")
             f.close()
 
     else:
+
+        print("####### Testing Size #######")
+        plt.clf()
         trials = []
 
-        for size, col in zip([0.5, 4], ['pink', 'green']):
+        for size, col in zip([0.5, 4], ['brown', 'black']):
             
             best_fitnesses = []
             for x in range(1, 6):
@@ -108,11 +114,11 @@ for op in range(2):
         plt.savefig("Best_fitnesses_link_size.jpg")
 
         for trial, size in zip(trials, [0.5, 4]):
-            f = open('hypo_test_link_size.txt','w')
-            f.write("STATS for link size: {}".format(size))
+            f = open('hypo_test_link_size_{}.txt'.format(size),'w')
+            f.write("STATS for link size: {}\n".format(size))
             f.write(str(trial))
-            f.write("Mean: {}".format(np.mean(trial)))
-            f.write("Max: {}".format(np.max(trial)))
-            f.write("Std: {}".format(np.std(trial)))
+            f.write("\nMean: {}\n".format(np.mean(trial)))
+            f.write("Max: {}\n".format(np.max(trial)))
+            f.write("Std: {}\n".format(np.std(trial)))
             f.write("-----------------------")
             f.close()
