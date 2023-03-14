@@ -11,7 +11,7 @@ os.system("python3 clean.py")
 
 trials = []
 
-for size, col in zip([0.5, 4], ['red', 'yellow']):
+for conn_type, col in zip(['SELECTIVE', 'ALL'], ['green', 'blue']):
     
     best_fitnesses = []
     for x in range(1, 6):
@@ -19,8 +19,8 @@ for size, col in zip([0.5, 4], ['red', 'yellow']):
         os.system("python3 clean.py")        
         time.sleep(2)
 
-        print("------- Size {} Random Seed {} --------".format(size, x))
-        phc = PARALLEL_HILL_CLIMBER(size)
+        print("------- Connection type {} Random Seed {} --------".format(conn_type, x))
+        phc = PARALLEL_HILL_CLIMBER(conn_type)
         phc.Evolve()
         # phc.Show_Best()
         best_fitnesses.append(max(phc.best_creature_fitness))
@@ -29,7 +29,7 @@ for size, col in zip([0.5, 4], ['red', 'yellow']):
         if x == 1:
             plt.plot([i + 1 for i in range(1, c.NUMBER_OF_GENERATIONS)], 
                     phc.best_creature_fitness, 
-                    label="size {}".format(size),
+                    label="size {}".format(conn_type),
                     color = col)
         else:
             plt.plot([i + 1 for i in range(1, c.NUMBER_OF_GENERATIONS)], 
@@ -51,8 +51,8 @@ plt.legend()
 plt.grid()
 plt.savefig("Best_fitnesses.jpg")
 
-for trial, size in zip(trials, [0.5, 4]):
-    print("STATS for Max Size: {}".format(size))
+for trial, ct in zip(trials, ['SELECTIVE', 'ALL']):
+    print("STATS for connection type: {}".format(ct))
     print(trial)
     print("Mean: {}".format(np.mean(trial)))
     print("Max: {}".format(np.max(trial)))

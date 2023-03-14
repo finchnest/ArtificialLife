@@ -2,6 +2,7 @@ import time
 import os
 import random
 start = time.time()
+import numpy as np
 # while True:
 
 #     time.sleep(1)
@@ -25,6 +26,18 @@ start = time.time()
 # print(ar[-1])
 # print(max(ar))
 
-fn = "fit_folder/fitness" + str(0) + ".txt"
+# fn = "fit_folder/fitness" + str(0) + ".txt"
 
-print(os.stat(fn).st_size == 0)
+# print(os.stat(fn).st_size == 0)
+
+# print(3 % 3 == 0 or 6%4 == 0)
+
+f = open('testvv.txt','w')
+f.write("STATS for link size: {}".format(1))
+x = [1,2,3]
+f.write(str(x))
+f.write("Mean: {}".format(np.mean(x)))
+f.write("Max: {}".format(np.max(x)))
+f.write("Std: {}".format(np.std(x)))
+f.write("-----------------------")
+f.close()

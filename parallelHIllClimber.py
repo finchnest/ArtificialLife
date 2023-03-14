@@ -6,13 +6,13 @@ import copy
 import os
 
 class PARALLEL_HILL_CLIMBER:
-    def __init__(self, size):
+    def __init__(self, conn_type):
         self.parents = {}
         self.nextAvailableID = 0
         self.best_creature_fitness = []
 
         for par in range(c.populationSize):
-            self.parents[par] = SOLUTION(self.nextAvailableID, size)
+            self.parents[par] = SOLUTION(self.nextAvailableID, conn_type)
             self.nextAvailableID += 1
 
         # os.system("rm brain*.nndf")

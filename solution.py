@@ -7,9 +7,10 @@ import time
 import constants as c
 
 class SOLUTION:
-    def __init__(self, myID, size):
-        self.mSize = size
+    def __init__(self, myID, conn_type):
+        self.conn_type = conn_type
         self.myID = myID
+        self.mSize = 1
 
     def Set_ID(self,ID):
         self.myID = ID
@@ -45,14 +46,14 @@ class SOLUTION:
             fn = "fit_folder/fitness" + str(int(self.myID) - 1) + ".txt"
             with open(fn,"r") as fi :
                 self.fitness = float(fi.read())
-                print("-o-o- ", self.fitness)
+                # print("-o-o- ", self.fitness)
         elif (os.stat(self.fitnessFileName).st_size == 0):
             self.fitness = 0
-            print("empty file")
+            # print("empty file")
         else: 
             with open(self.fitnessFileName,"r") as fitness_info :
                 self.fitness = float(fitness_info.read())
-                print("-o-o- ", self.fitness)
+                # print("-o-o- ", self.fitness)
         
 
         # try:
@@ -202,7 +203,11 @@ class SOLUTION:
 
         for i in range(num_sensors):
             for j in range(self.num_joints):
-                pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + num_sensors, weight=self.weights[i, j])
+                if (self.conn_type == 'selective'):
+                    if (i % 2 == 0 or j % 2 == 0):
+                        pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + num_sensors, weight=self.weights[i, j])
+                else:
+                    pyrosim.Send_Synapse(sourceNeuronName= i, targetNeuronName= j + num_sensors, weight=self.weights[i, j])
 
         pyrosim.End()
 
