@@ -7,7 +7,8 @@ import time
 import constants as c
 
 class SOLUTION:
-    def __init__(self, myID):
+    def __init__(self, myID, size):
+        self.mSize = size
         self.myID = myID
 
     def Set_ID(self,ID):
@@ -30,7 +31,7 @@ class SOLUTION:
 
     def Wait_For_Simulation_To_End(self):
         self.fitnessFileName = "fit_folder/fitness" + str(self.myID) + ".txt"
-        print(self.fitnessFileName)
+        # print(self.fitnessFileName)
 
         start = time.time()
         check = False
@@ -44,12 +45,30 @@ class SOLUTION:
             fn = "fit_folder/fitness" + str(int(self.myID) - 1) + ".txt"
             with open(fn,"r") as fi :
                 self.fitness = float(fi.read())
+                print("-o-o- ", self.fitness)
+        elif (os.stat(self.fitnessFileName).st_size == 0):
+            self.fitness = 0
+            print("empty file")
         else: 
             with open(self.fitnessFileName,"r") as fitness_info :
                 self.fitness = float(fitness_info.read())
+                print("-o-o- ", self.fitness)
         
 
-        # os.system("rm "+ self.fitnessFileName)
+        # try:
+        #     while not os.path.exists(self.fitnessFileName):
+        #         time.sleep(0.01)
+        #         if(time.time() - start > 3):
+        #             check = True
+        #             break
+        #     with open(self.fitnessFileName,"r") as fitness_info :
+        #         self.fitness = float(fitness_info.read())
+        # except:
+        #     fn = "fit_folder/fitness" + str(int(self.myID) - 1) + ".txt"
+        #     with open(fn,"r") as fi :
+        #         self.fitness = float(fi.read())
+
+        # # os.system("rm "+ self.fitnessFileName)
 
 
     def Create_World(self):
@@ -64,7 +83,8 @@ class SOLUTION:
 
         pyrosim.Start_URDF("body_folder/body{}.urdf".format(self.myID))
 
-        self.cube_size = [random.random(), random.random(), random.random()]        
+        self.cube_size = [random.random(), random.random(), random.random()] 
+        self.cube_size = [x * self.mSize for x in self.cube_size]
         self.first_cube_pos = [0, 0, 2 + self.cube_size[2]/2]
 
         self.num_links = random.randint(5, 7)
@@ -93,6 +113,8 @@ class SOLUTION:
 
         for x in range(1, self.num_links - 1):
             self.random_cube_size = [random.random(), random.random(), random.random()]
+            self.random_cube_size = [x * self.mSize for x in self.random_cube_size]
+
             #eight joint directions
             self.corners = random.randint(0, 7)
             if self.corners == 0:
@@ -154,6 +176,9 @@ class SOLUTION:
             self.prev_size = self.random_cube_size
 
         pyrosim.End()
+
+        while not os.path.exists('body_folder/body{}.urdf'.format(self.myID)):
+            time.sleep(.01)
 
     def Mutate(self):
         row = np.random.randint(0, len(self.links_with_sensor))

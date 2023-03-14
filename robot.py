@@ -12,8 +12,8 @@ class ROBOT:
     def __init__(self, solutionID):
         self.solutionID = solutionID
         
-        self.fitness = "fit_folder/fitness"+str(self.solutionID)+".txt"     
-        self.tmp = "tmp"+str(self.solutionID)+".txt"
+        self.fitnessF = "fit_folder/fitness"+str(self.solutionID)+".txt"     
+        # self.tmp = "tmp"+str(self.solutionID)+".txt"
       
         self.robotID = p.loadURDF("body_folder/body{}.urdf".format(self.solutionID))
         self.nn = NEURAL_NETWORK("brain_folder/brain{}.nndf".format(self.solutionID))
@@ -38,12 +38,10 @@ class ROBOT:
         position0fLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = position0fLinkZero[0]
 
-        f = open(self.tmp,'w')
+        f = open(self.fitnessF,'w')
         f.write(str(xCoordinateOfLinkZero))
-
         f.close()
-
-        os.system("mv "+ self.tmp +" "+ self.fitness)
+        # os.system("mv "+ self.tmp +" "+ self.fitness)
         
     def Prepare_To_Act(self):
         self.motors = {}
