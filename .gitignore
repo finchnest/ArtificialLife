@@ -6,3 +6,6 @@ __pycache__/
 data/
 exp.py
 pyrosim/__pycache__/
+body_folder/
+brain_folder/
+fit_folder/
