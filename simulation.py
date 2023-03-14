@@ -38,6 +38,7 @@ class SIMULATION:
 
             self.robot.Act(x)
 
+
     def Get_Fitness(self):
         self.robot.Get_Fitness()   
 

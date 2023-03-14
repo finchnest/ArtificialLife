@@ -29,13 +29,27 @@ class SOLUTION:
 
 
     def Wait_For_Simulation_To_End(self):
-        self.fitnessFileName = "fitness" + str(self.myID) + ".txt"
+        self.fitnessFileName = "fit_folder/fitness" + str(self.myID) + ".txt"
+        print(self.fitnessFileName)
+
+        start = time.time()
+        check = False
         while not os.path.exists(self.fitnessFileName):
             time.sleep(0.01)
-        with open(self.fitnessFileName,"r") as fitness_info :
-            self.fitness = float(fitness_info.read())
+            if(time.time() - start > 5):
+                check = True
+                break
+        
+        if(check):
+            fn = "fit_folder/fitness" + str(int(self.myID) - 1) + ".txt"
+            with open(fn,"r") as fi :
+                self.fitness = float(fi.read())
+        else: 
+            with open(self.fitnessFileName,"r") as fitness_info :
+                self.fitness = float(fitness_info.read())
+        
 
-        os.system("rm "+ self.fitnessFileName)
+        # os.system("rm "+ self.fitnessFileName)
 
 
     def Create_World(self):
@@ -48,7 +62,7 @@ class SOLUTION:
 
     def Create_Body(self):
 
-        pyrosim.Start_URDF("body{}.urdf".format(self.myID))
+        pyrosim.Start_URDF("body_folder/body{}.urdf".format(self.myID))
 
         self.cube_size = [random.random(), random.random(), random.random()]        
         self.first_cube_pos = [0, 0, 2 + self.cube_size[2]/2]
@@ -66,7 +80,7 @@ class SOLUTION:
 
 
 
-        print("Robot {} links with sensor ".format(self.myID), self.links_with_sensor)
+        # print("Robot {} links with sensor ".format(self.myID), self.links_with_sensor)
 
         pyrosim.Send_Cube(name="Link0", pos=self.first_cube_pos, size=self.cube_size, color= 0 in self.links_with_sensor)
 
@@ -150,7 +164,7 @@ class SOLUTION:
 
     def Create_Brain(self):
         
-        pyrosim.Start_NeuralNetwork("brain"+str(self.myID) +".nndf")
+        pyrosim.Start_NeuralNetwork("brain_folder/brain"+str(self.myID) +".nndf")
         num_sensors = 0
         for i in self.links_with_sensor:
             pyrosim.Send_Sensor_Neuron(name=num_sensors, linkName='Link{}'.format(i))

@@ -15,17 +15,18 @@ class PARALLEL_HILL_CLIMBER:
             self.parents[par] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID += 1
 
-        os.system("rm  brain*.nndf")
-        os.system("rm body*.urdf")
-        os.system("rm fitness*.nndf")
+        # os.system("rm brain*.nndf")
+        # os.system("rm body*.urdf")
+        # os.system("rm fitness*.txt")
 
 
     def Evolve(self):
         
-         
+        print("Generation-----> ", 1)
+
         self.Evaluate(self.parents)
 
-        for currentGeneration in range(c.NUMBER_OF_GENERATIONS):
+        for currentGeneration in range(2, c.NUMBER_OF_GENERATIONS + 1):
             print()
             print("Generation-----> ", currentGeneration)
             self.Evolve_For_One_Generation()
@@ -46,7 +47,7 @@ class PARALLEL_HILL_CLIMBER:
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        self.Print()
+        # self.Print()
         self.Select()
 
     def Show_Best(self):

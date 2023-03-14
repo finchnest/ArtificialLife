@@ -12,13 +12,13 @@ class ROBOT:
     def __init__(self, solutionID):
         self.solutionID = solutionID
         
-        self.fitness = "fitness"+str(self.solutionID)+".txt"     
+        self.fitness = "fit_folder/fitness"+str(self.solutionID)+".txt"     
         self.tmp = "tmp"+str(self.solutionID)+".txt"
       
-        self.robotID = p.loadURDF("body{}.urdf".format(self.solutionID))
-        self.nn = NEURAL_NETWORK("brain{}.nndf".format(self.solutionID))
-        os.system("rm brain{}.nndf".format(self.solutionID))
-        os.system("rm body{}.urdf".format(self.solutionID))
+        self.robotID = p.loadURDF("body_folder/body{}.urdf".format(self.solutionID))
+        self.nn = NEURAL_NETWORK("brain_folder/brain{}.nndf".format(self.solutionID))
+        # os.system("rm brain{}.nndf".format(self.solutionID))
+        # os.system("rm body{}.urdf".format(self.solutionID))
 
         pyrosim.Prepare_To_Simulate(self.robotID)
         self.Prepare_To_Sense()

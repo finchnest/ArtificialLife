@@ -1,12 +1,11 @@
-import random
+import time
 
-import numpy as np
-import constants as c
+start = time.time()
+while True:
 
-from solution import SOLUTION
+    time.sleep(1)
+    print(" under 5 ")
+    if(time.time() - start > 5):
+        print("finished")
+        break
 
-
-
-for i in range(1):
-    sol = SOLUTION(i)
-    sol.Start_Simulation(True)
