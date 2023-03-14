@@ -11,11 +11,11 @@ import numpy as np
 #         print("finished")
 #         break
 
-# for x in range (10):
-#     l = [random.random(), random.random(), random.random()] 
-#     l = [x * 3 for x in l]
+for x in range (10):
+    l = [random.random(), random.random(), random.random()] 
+    # l = [x * 3 for x in l]
 
-#     print(l)
+    print(l)
 
 # ar = []
 # ar.append(1)
@@ -32,12 +32,12 @@ import numpy as np
 
 # print(3 % 3 == 0 or 6%4 == 0)
 
-f = open('testvv.txt','w')
-f.write("STATS for link size: {}".format(1))
-x = [1,2,3]
-f.write(str(x))
-f.write("Mean: {}".format(np.mean(x)))
-f.write("Max: {}".format(np.max(x)))
-f.write("Std: {}".format(np.std(x)))
-f.write("-----------------------")
-f.close()
+# f = open('testvv.txt','w')
+# f.write("STATS for link size: {}".format(1))
+# x = [1,2,3]
+# f.write(str(x))
+# f.write("Mean: {}".format(np.mean(x)))
+# f.write("Max: {}".format(np.max(x)))
+# f.write("Std: {}".format(np.std(x)))
+# f.write("-----------------------")
+# f.close()
