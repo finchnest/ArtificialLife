@@ -33,7 +33,7 @@ The following B-Roll clip shows some of the good and bad creatures observed. [li
 
 ## Body generation
 
-To create the body, a random number of links between 5 and 7 are generated. Then joints will be generated --> num_of_joints <= num_of_links - 1. The links will have a random width, length, and height. Then based on a coin flip, a few links are chosen to have a sensor. The probability is fair. Following that links and joints are connected together. A given link has equal chance of binding to one of the 6 sides of an existing or parent link. Details are attached below. Since links are attached in all the 3 directions with equal probability (+x, -x, +y, -y, +z, -z), infinitely many shapes are possible.  
+To create the body, a random number of links is chosen. Then joints will be generated --> num_of_joints <= num_of_links - 1. The links will have a random width, length, and height. Then based on a coin flip, a few links are chosen to have a sensor. The probability is fair. Following that links and joints are connected together. A given link has equal chance of binding to one of the 6 sides of an existing or parent link. Details are attached below. Since links are attached in all the 3 directions with equal probability (+x, -x, +y, -y, +z, -z), infinitely many shapes are possible.  
 
 > The randomly generated dimensions (which are between 0 and 1), will be changed when testing hypothesis 2.
 
@@ -41,7 +41,7 @@ To create the body, a random number of links between 5 and 7 are generated. Then
 
 ## Brain generation
 
-For the brain, links that were assigned to have a sensors will be attached with a sensory neuron. Motors are added to all joints, however. Then a synapse connection is made between sensory neurons and motor neurons. 
+For the brain, links that were assigned to have a sensors will be attached with a sensory neuron. Motors are added to all joints, however. Then a synapse connection is made between sensory neurons and motor neurons. How Brain generation occurs is shown in the diagram above.
 > All sensory neurons will be connected to all motor neurons EXCEPT when testing hypothesis 1.
 
 
@@ -82,6 +82,8 @@ For Run 1, I run the simulation for 5 random seeds each with a population size o
 For Run 2, I kept everything the same except for population size; I increased it to 8 resulting in 20,000 simulations (2 types * 5 seeds * 8 population size * 250 generations = 20,000 sims)
 
 > I performed each of these two Runs for both Hypothesis 1 and 2. For my computer, 2500 simulations took around 14 minutes. 
+
+> Code specific to each of these two hypothese is found mainly in solution.py file, specifically Create_Body and Create_Brain functions. The call happens from search.py
 
 # Results and Discussion
 
@@ -131,6 +133,8 @@ The maximum fitness value, is larger for creatures with a size of 0.5. I believe
 
 Regarding the graph, I noticed the result was a bit different from what I found out for hypothesis 1. In hypothesis 2, the graph shows more evolution (consistent increases) for Run 1 (the one with 5 population size) in comparison to Run 2 (the one with 8 population size). In fact, in one of the seeds for Run 2 (shown in black in the figure above), the fitness value remains constant throught the 250 generations. One of the reasons for this could be the possibilitiy that the highest fitness value was achieved early on in evolution due to randomness/luck and the generations that came after it have a lower or equal fitness value.
 
+
+In all Runs, evolution seems to slow down after 150-200 generations. Like mentioned before, one reason could be the possibility of achieving high fitness value early on in the evolution. Another reason could be lack of diverse population size. Even though all Runs were done with at least 250 generations, limited population size could still end up being an issue. Lastly, the kind of fitness function and what it's measuring could be another contributing factor. 
 
 # Limitations and Future Work
 
