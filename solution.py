@@ -78,7 +78,8 @@ class SOLUTION:
         pyrosim.End()
 
 
-
+    def flip(self, p):
+        return True if random.random() < p else False
 
     def Create_Body(self):
 
@@ -95,8 +96,8 @@ class SOLUTION:
         self.links_with_sensor = [0]
 
         for x in range(1, self.num_links):
-            coin = random.randint(0, 1)
-            if coin == 1:
+            biased_flip_coin = self.flip(0.5)
+            if biased_flip_coin:
                 self.links_with_sensor.append(x)
 
 

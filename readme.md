@@ -13,22 +13,36 @@ _____________________________
 
     Run the search.py file.
 
+
+
 # How it works
 
 Running the program generates a creature with a random shape that is evolved to traval furtherest from its initial position. The fitness function favors creatures that travel farther. To achive this, synaptic weights of the creature's brain neuron are mutated.
+
+The follwing video gives a brief overview of what hypothesis I tested, the experimental set up used, and the results observed. [link](https://youtu.be/ItzhqBzQRFU) 
+
+The following B-Roll clip shows some of the good and bad creatures observed. [link](https://youtu.be/NXqqCg-zxzo)
+
+
+> Shown below is a teaser gif
+
+![Plot](final_teaser_video.gif)
+
 
 # Body and Brain Generation
 
 ## Body generation
 
-To create the body, a random number of links between 5 and 7 are generated. Then joints will be generated, i.e, #joints <= #links - 1. The links will have a random width, length, and height. Then based on a coin flip, a few links are chosen to have a sensor. The probability is fair. Following that links and joints are connected together. A given link has 1/8 chance of binding to one of the 8 corners of the 'previous' or parent link, since there are 8 corners. Details are attached below. Since links are attached in all the 3 directions with equal probability (+x, -x, +y, -y, +z, -z), infinitely many shapes are possible.  
+To create the body, a random number of links between 5 and 7 are generated. Then joints will be generated, i.e, #joints <= #links - 1. The links will have a random width, length, and height. Then based on a coin flip, a few links are chosen to have a sensor. The probability is fair. Following that links and joints are connected together. A given link has equal chance of binding to one of the 6 sides of the 'previous' or parent link. Details are attached below. Since links are attached in all the 3 directions with equal probability (+x, -x, +y, -y, +z, -z), infinitely many shapes are possible.  
 
-![Plot](body_generation.jpg)
+![Plot](body_brain_generation.jpeg)
 
 ## Brain generation
 
 For the brain, links that were assigned to have a sensors will be attached with a sensory neuron. Motors are added to all joints, however. Then a synaptic connection is made between sensory neurons and motor neurons. All sensory neurons will be connected to all motor neurons. 
 
+
+Whether there will be synaptic connection is part of the tests.
 
 # Mutation
 
@@ -37,6 +51,9 @@ The mutation chages synaptic weight  of neurons connection. If the connection re
 # Selection
 
 For the best creature selection, I used the algorithm described in parallelHillClimber.py. This works by first instantiating parent creatures. Then based on the number of generations set, each parent spawns a child with a different synaptic weight. Mutation causes change in synapse weight. Then the fitness of each mutated child is compared with its parent and if it's greater, the parent will be replaced with the child. Finally, fitness value of the best creature at each generatio is gathered and plotted.
+
+
+![Plot](selection.jpeg)
 
 
 
