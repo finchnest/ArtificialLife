@@ -138,9 +138,19 @@ The biggest source of uncertainity in my experiment was limitation of computing 
 
 For this project I focused on locomotion aspect of creaures. Even though locomotion is important, there are wide variety of behaviors a creature can exhibit to survive like vision, sound detection, weight of the creature, types of joints between links, shape of body parts, etc. The environment could also be changed like the gravity, frictional value of the ground, etc. Investigating these behaviros would allow us to simulate how living things would have been affected in early stages of life. 
 
+# Final touch
+
+I run the simulation again for each hypothesis once again for a simulation of 56,000. \
+4 total tests (2 hypotheses each with control and experimental group). \
+Each of these 4 tests were done with 5 seeds, a population size of 8 and a generation limit of 350.\
+4*5*8*350 = 56,000
+
+>This brings the total simulation I've done to over 100,000. The analysis files (the text files starting with "hypo_test_") contain mean, max, and std dev for this run.
 
 # Reference
 
 This work takes inspiration from [ludobots](www.reddit.com/r/ludobots) subreddit. I also extensively used Pyrosim library.
+
+
 
 
