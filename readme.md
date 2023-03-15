@@ -155,6 +155,6 @@ Each of these 4 tests were done with 5 seeds, a population size of 8 and a gener
 
 This work takes inspiration from [ludobots](www.reddit.com/r/ludobots) subreddit. I also extensively used Pyrosim library.
 
-
+Since GitHub doesn't allow uploading files over 25MB, here is a link for the clips of best creatures: [Best Creatures](https://drive.google.com/drive/folders/1_fiiamFi8gz1xyBbPomBR9s_C9rqVqfi?usp=sharing)
 
 
